@@ -2,23 +2,24 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function EntryPage() {
   return (
     <Container>
-      <Row class='align-items-center'>
+      <Row className='d-flex justify-items-between my-3'>
+        <Col/>
         <Col>
-          <div class='my-3'>
             <img src='./images/icon-menu-14.jpg' alt='Categories' />
-          </div>
         </Col>
+        <Col/>
       </Row>
-      <Row class='align-items-center'>
+      <Row className='d-flex justify-items-between my-3'>
+        <Col/>
         <Col>
-          <div class='my-3'>
             <Button variant='primary'>Play</Button>
-          </div>
         </Col>
+        <Col/>
       </Row>
     </Container>
   )
