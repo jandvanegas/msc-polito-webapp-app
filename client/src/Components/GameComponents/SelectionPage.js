@@ -1,36 +1,29 @@
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 
-function SelectionPage() {
+function SelectionPage(props) {
+  const { setSettings } = props
+
+  const handleSubmitSettings = (event) => {
+    event.preventDefault()
+    setSettings({
+      difficulty: event.target.elements.difficulty.value,
+      category: event.target.elements.category.value,
+    })
+  }
   return (
-    <Container>
+    <Form onSubmit={handleSubmitSettings}>
       <Row className='d-flex justify-items-between my-3'>
         <Col />
         <Col>
-          <FloatingLabel controlId='floatingSelect' label='Difficulty'>
-            <Form.Select>
-              <option>Select Difficulty</option>
-              <option value='1'>Easy</option>
-              <option value='2'>Middle</option>
-              <option value='3'>Hard</option>
-            </Form.Select>
-          </FloatingLabel>
-        </Col>
-        <Col />
-      </Row>
-      <Row className='d-flex justify-items-between my-3 m'>
-        <Col />
-        <Col>
-          <FloatingLabel controlId='floatingSelect' label='Category'>
-            <Form.Select>
-              <option>Select Category</option>
-              <option value='1'>Colors</option>
-              <option value='2'>Countries</option>
-              <option value='3'>Animals</option>
+          <FloatingLabel controlId='difficulty' label='Difficulty'>
+            <Form.Select required={true}>
+              <option value='easy'>Easy</option>
+              <option value='middle'>Middle</option>
+              <option value='hard'>Hard</option>
             </Form.Select>
           </FloatingLabel>
         </Col>
@@ -39,11 +32,26 @@ function SelectionPage() {
       <Row className='d-flex justify-items-between my-3'>
         <Col />
         <Col>
-          <Button variant='primary'>Start</Button>
+          <FloatingLabel controlId='category' label='Category'>
+            <Form.Select required={true}>
+              <option value='colors'>Colors</option>
+              <option value='countries'>Countries</option>
+              <option value='animals'>Animals</option>
+            </Form.Select>
+          </FloatingLabel>
         </Col>
         <Col />
       </Row>
-    </Container>
+      <Row className='d-flex justify-items-between my-3'>
+        <Col />
+        <Col className='d-flex justify-content-center'>
+          <Button variant='primary' type='submit'>
+            Start
+          </Button>
+        </Col>
+        <Col />
+      </Row>
+    </Form>
   )
 }
 

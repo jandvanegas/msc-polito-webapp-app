@@ -29,8 +29,8 @@ function NavigationBar(props) {
           </svg>
         </Navbar.Brand>
         <Nav className='me-auto'>
-          <Nav.Link href='#home'>Home</Nav.Link>
-          <Nav.Link href='#leaderboard'>Leaderboard</Nav.Link>
+          <Nav.Link href='/#'>Home</Nav.Link>
+          <Nav.Link href='/leaderboard#'>Hall of Fame</Nav.Link>
         </Nav>
         <Button onClick={props.handleLogout}>
           Logout &nbsp;
