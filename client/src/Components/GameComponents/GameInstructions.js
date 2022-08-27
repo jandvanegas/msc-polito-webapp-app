@@ -13,15 +13,16 @@ function GameInstructions(props) {
           dismissible
           onClose={() => setShowInstructions(false)}
         >
-          <span>You are playing in </span>
-          <span className='important'>{settings.difficulty} </span>
-          <span>mode.</span>
+          <span>You are playing in level </span>
+          <span className='important'>{settings.level}</span>
+          <span>.</span>
           <br />
           <span> Insert as many </span>
           <span className='important'>{settings.category}</span>
           <br />
           <span> starting with the letter </span>
           <span className='important'>{randomLetter}</span>
+          <span>.</span>
         </Alert>
       </>
     )

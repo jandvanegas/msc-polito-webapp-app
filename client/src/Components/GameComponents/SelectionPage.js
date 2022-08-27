@@ -10,7 +10,7 @@ function SelectionPage(props) {
   const handleSubmitSettings = (event) => {
     event.preventDefault()
     setSettings({
-      difficulty: event.target.elements.difficulty.value,
+      level: event.target.elements.level.value,
       category: event.target.elements.category.value,
     })
   }
@@ -19,11 +19,12 @@ function SelectionPage(props) {
       <Row className='d-flex justify-items-between my-3'>
         <Col />
         <Col>
-          <FloatingLabel controlId='difficulty' label='Difficulty'>
+          <FloatingLabel controlId='level' label='Level'>
             <Form.Select required={true}>
-              <option value='easy'>Easy</option>
-              <option value='middle'>Middle</option>
-              <option value='hard'>Hard</option>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
             </Form.Select>
           </FloatingLabel>
         </Col>
