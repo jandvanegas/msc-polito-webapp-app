@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 function GameWords(props) {
-  const { settings, randomLetter } = props
+  const { settings, randomLetter, words, setWords } = props
   const placeholderText = `${randomLetter}...`
-  const [words, setWords] = useState([])
-  useEffect(() => {
-    localStorage.setItem('words', JSON.stringify(words))
-  }, [words])
 
   const handleWordSubmit = (event) => {
     event.preventDefault()
@@ -25,10 +20,10 @@ function GameWords(props) {
       setWords((oldWords) => [...oldWords, word])
     }
   }
-  const showableWords = words.map((word) => {
+  const showableWords = words.map((word, index) => {
     return (
-      <div>
-        <span>{word}</span>
+      <div key={index}>
+        <span key={words}>{word}</span>
       </div>
     )
   })

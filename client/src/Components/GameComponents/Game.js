@@ -6,20 +6,20 @@ import { useState } from 'react'
 function Game() {
   const [settings, setSettings] = useState({ level: 0, category: 0 })
   const [lastWords, setLastWords] = useState([])
+  const [letter, setLetter] = useState('')
 
-  function stopGame() {
-    setSettings({ level: 0, category: 0 })
-    const words = JSON.parse(localStorage.getItem('words'))
-    if (words) {
-      setLastWords(words)
-      localStorage.setItem('words', JSON.stringify([]))
-    }
-  }
-
-  if (lastWords.length > 0) {
-    return <GameScore lastWords={lastWords} setLastWords={setLastWords} />
+  if (lastWords.length > 0 && letter) {
+    return (
+      <GameScore lastWords={lastWords} letter={letter} settings={settings} />
+    )
   } else if (settings.level && settings.category) {
-    return <GamePage settings={settings} stopGame={stopGame} />
+    return (
+      <GamePage
+        settings={settings}
+        setLetter={setLetter}
+        setLastWords={setLastWords}
+      />
+    )
   } else {
     return <SelectionPage setSettings={setSettings} />
   }

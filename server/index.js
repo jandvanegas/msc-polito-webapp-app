@@ -7,6 +7,7 @@ const bp = require('body-parser');
 const scoreService = require('./services/scoreService');
 const {check, validationResult} = require('express-validator');
 const {dao} = require('./db/dao')
+const cors = require('cors');
 
 const app = new express();
 app.use(morgan('dev'));
@@ -19,6 +20,13 @@ const db = new sqlite.Database('db/categories.db', (err) => {
 const myDao = dao(db);
 const myScoreService = scoreService(myDao);
 
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200,
+    credentials: true,
+}
+
+app.use(cors(corsOptions));
 app.post('/api/score', 
   [
     check('letter').isIn('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("")),
@@ -29,6 +37,7 @@ app.post('/api/score',
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(`Validation errors: ${JSON.stringify(errors.array())}`);
       return res.status(422).json({ errors: errors.array() });
     }
     myScoreService

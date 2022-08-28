@@ -4,7 +4,8 @@ import Timer from './Timer'
 import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 function GameSettings(props) {
-  const { settings, randomLetter, stopGame } = props
+  const { settings, randomLetter, stopGame} = props
+
   return (
     <Col className='d-flex-col justify-content-center my-3' align='center'>
       <Row>
