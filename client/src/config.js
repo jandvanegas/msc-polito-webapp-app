@@ -1,5 +1,5 @@
 const configData = {
-  GAME_DURATION_IN_SECONDS: 5,
+  GAME_DURATION_IN_SECONDS: 60,
   API_URL: 'http://localhost:3001/api',
   ALPHABET: 'B',
   // ALPHABET: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',

@@ -34,6 +34,7 @@ function GamePage(props) {
               randomLetter={gameLetter}
               words={words}
               setWords={setWords}
+              stopGame={stopGame}
             />
           </Row>
         </Col>

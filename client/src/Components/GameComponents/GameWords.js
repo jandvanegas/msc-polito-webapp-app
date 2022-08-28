@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 function GameWords(props) {
-  const { settings, randomLetter, words, setWords } = props
+  const { settings, randomLetter, words, setWords, stopGame } = props
   const placeholderText = `${randomLetter}...`
   const [word, setWord] = useState('')
   const [validWord, setValidWord] = useState(true)
@@ -45,6 +45,9 @@ function GameWords(props) {
       setValidWord(false)
     }
   }
+  const endRound = () => {
+    stopGame(true)
+  }
 
   return (
     <>
@@ -69,6 +72,9 @@ function GameWords(props) {
         </Form.Group>
         <Button variant='primary' type='submit'>
           Add
+        </Button>
+        <Button variant='secondary' onClick={endRound}>
+          End
         </Button>
         <Form.Group className='mb-3' controlId='words'>
           <Form.Label>Inserted {settings.category}</Form.Label>
