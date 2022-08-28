@@ -1,23 +1,32 @@
+import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 function GameWords(props) {
   const { settings, randomLetter, words, setWords } = props
   const placeholderText = `${randomLetter}...`
+  const [word, setWord] = useState('')
+  const [validWord, setValidWord] = useState(true)
 
   const handleWordSubmit = (event) => {
     event.preventDefault()
-    const word = event.target.elements.word.value.toUpperCase()
-    event.target.elements.word.value = ''
-    setWords((oldWords) => [...oldWords, word])
+    if (validWord) {
+      setWords((oldWords) => [...oldWords, word])
+      setWord('')
+    } else {
+        event.stopPropagation()
+    }
   }
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault()
-      const word = event.target.value.toUpperCase()
-      event.target.value = ''
-      setWords((oldWords) => [...oldWords, word])
+      if (validWord) {
+        setWords((oldWords) => [...oldWords, word])
+        setWord('')
+      } else {
+        event.stopPropagation()
+      }
     }
   }
   const showableWords = words.map((word, index) => {
@@ -27,6 +36,15 @@ function GameWords(props) {
       </div>
     )
   })
+  const handleWordChange = (event) => {
+    const newWord = event.target.value.toUpperCase()
+    setWord(newWord)
+    if (newWord.startsWith(randomLetter)) {
+      setValidWord(true)
+    } else {
+      setValidWord(false)
+    }
+  }
 
   return (
     <>
@@ -37,9 +55,16 @@ function GameWords(props) {
             type='text'
             placeholder={placeholderText}
             onKeyDown={handleKeyPress}
+            onChange={handleWordChange}
+            isInvalid={!validWord}
+            isValid={word.length > 0 && validWord}
+            value={word}
           />
+          <Form.Control.Feedback type='invalid'>
+            Please Insert a word that starts with {randomLetter}.
+          </Form.Control.Feedback>
           <Form.Text className='text-muted'>
-            Hit Enter or click insert to a word
+            Hit Enter or click insert to add a word
           </Form.Text>
         </Form.Group>
         <Button variant='primary' type='submit'>

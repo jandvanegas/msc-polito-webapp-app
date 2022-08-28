@@ -4,11 +4,24 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Api from '../../Api'
+import { useNavigate } from 'react-router-dom'
 
 function GameScore(props) {
-  const { lastWords, settings, letter } = props
+  const { lastWords, settings, letter, setLetter, setSettings } = props
   const [score, setScore] = useState(0)
-  const insertedWords = lastWords.map((word, index) => {
+  const uniqueWords = [...new Set(lastWords)];
+
+  const navigate = useNavigate()
+  const goHome = () => {
+    navigate('/')
+  }
+
+  const resetGame = () => {
+    setSettings({ level: 0, category: 0 })
+    setLetter('')
+  }
+
+  const insertedWords = uniqueWords.map((word, index) => {
     return (
       <div key={index}>
         <span>{word}</span>
@@ -22,7 +35,7 @@ function GameScore(props) {
         settings.category,
         letter,
         settings.level,
-        lastWords
+        uniqueWords
       )
       console.log(response)
       setScore(response.score)
@@ -54,10 +67,10 @@ function GameScore(props) {
         <Row className='d-flex justify-items-between my-3'>
           <Col />
           <Col className='d-flex justify-content-center'>
-            <Button variant='primary' className='mx-1'>
+            <Button variant='primary' className='mx-1' onClick={resetGame}>
               Play Again
             </Button>
-            <Button variant='secondary' className='mx-1'>
+            <Button variant='secondary' className='mx-1' onClick={goHome}>
               Close
             </Button>
           </Col>

@@ -8,9 +8,9 @@ function Game() {
   const [lastWords, setLastWords] = useState([])
   const [letter, setLetter] = useState('')
 
-  if (lastWords.length > 0 && letter) {
+  if (letter) {
     return (
-      <GameScore lastWords={lastWords} letter={letter} settings={settings} />
+      <GameScore lastWords={lastWords} letter={letter} settings={settings} setLetter={setLetter} setSettings={setSettings} />
     )
   } else if (settings.level && settings.category) {
     return (
