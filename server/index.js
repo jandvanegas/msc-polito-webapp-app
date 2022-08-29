@@ -46,14 +46,12 @@ passport.serializeUser(function (user, cb) {
 passport.deserializeUser(function (user, cb) { // this user is id + email + name
   return cb(null, user);
 });
-
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
   return res.status(401).json({error: 'Not authorized'});
 }
-
 app.use(session({
   secret: "super_secret_secret",
   resave: false,
@@ -68,6 +66,11 @@ app.get('/api/sessions/current', (req, res) => {
     res.json(req.user);
   } else
     res.status(401).json({error: 'Not authenticated'});
+});
+app.delete('/api/sessions/current', (req, res) => {
+    req.logout(() => {
+        res.end();
+    });
 });
 
 app.post('/api/score',
@@ -97,7 +100,7 @@ app.post('/api/rounds', [
   check('level').isInt({min: 1, max: 4}),
   check('words').isArray(),
   check('score').isInt({min: 0}),
-], async (req, res) => {
+], isLoggedIn, async (req, res) => {
   const userId = req.user.id;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

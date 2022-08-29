@@ -11,7 +11,6 @@ function GameScore(props) {
   const { lastWords, settings, letter, setLetter, setSettings } = props
   const [score, setScore] = useState(0)
   const [passed, setPassed] = useState(false)
-  const uniqueWords = [...new Set(lastWords)]
 
   const navigate = useNavigate()
   const goHome = () => {
@@ -23,26 +22,30 @@ function GameScore(props) {
     setLetter('')
   }
 
-  const insertedWords = uniqueWords.map((word, index) => {
-    return (
-      <div key={index}>
-        <span>{word}</span>
-      </div>
-    )
-  })
+  const insertedWords = (words) => {
+    const uniqueWords = [...new Set(words)]
+    return uniqueWords.map((word, index) => {
+      return (
+        <div key={index}>
+          <span>{word}</span>
+        </div>
+      )
+    })
+  }
 
   useEffect(() => {
     const checkScore = async () => {
+      const uniqueWords = [...new Set(lastWords)]
       const response = await Api.postScore(
         settings.category,
         letter,
         settings.level,
         uniqueWords
       )
-      await Api.logIn({
-        username: 'john.doe@polito.it',
-        password: 'password',
-      })
+      // await Api.logIn({
+      //   username: 'john.doe@polito.it',
+      //   password: 'password',
+      // })
       await Api.addRound({
         category: settings.category,
         letter: letter,
@@ -74,7 +77,7 @@ function GameScore(props) {
               <h2>Category</h2>
               <div className='text-right border'>{settings.category}</div>
               <h2>Inserted words</h2>
-              <div className='text-right border'>{insertedWords}</div>
+              <div className='text-right border'>{insertedWords(lastWords)}</div>
               {passed && (
                 <span>
                   <h2 className='text-center text-success my-3'>

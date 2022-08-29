@@ -6,12 +6,15 @@ import Image from 'react-bootstrap/Image'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
 
-function EntryPage() {
+function EntryPage(props) {
   const navigate = useNavigate()
+  const { loggedIn } = props
   const startGame = () => {
     navigate('/play')
   }
-
+  const logIn = () => {
+    navigate('/login')
+  }
   return (
     <Container>
       <Row className='d-flex justify-items-between my-3'>
@@ -24,9 +27,18 @@ function EntryPage() {
       <Row className='d-flex justify-items-between my-3'>
         <Col />
         <Col className='d-flex justify-content-center'>
-          <Button onClick={startGame} variant='primary'>
+          <Button className='mx-2' onClick={startGame} variant='primary'>
             Play
           </Button>
+          {!loggedIn && (
+            <Button
+              className='btn-secondary mx-2'
+              onClick={logIn}
+              variant='primary'
+            >
+              Log In
+            </Button>
+          )}
         </Col>
         <Col />
       </Row>

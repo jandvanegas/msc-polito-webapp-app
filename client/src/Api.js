@@ -52,9 +52,33 @@ const logIn = async (credentials) => {
     throw await response.text()
   }
 }
+
+const getUserInfo = async () => {
+    const response = await fetch(`${configData.API_URL}/sessions/current`, {
+        credentials: 'include',
+    });
+    const message = await response.json();
+    if (response.ok) {
+        return message;
+    } else {
+        throw message;
+    }
+};
+
+const logOut = async () => {
+    const response = await fetch(`${configData.API_URL}/sessions/current`, {
+        method: 'DELETE',
+        credentials: 'include'
+    });
+    if (response.ok)
+        return null;
+}
+
 const API = {
   logIn,
+  logOut,
   postScore,
   addRound,
+  getUserInfo,
 }
 export default API

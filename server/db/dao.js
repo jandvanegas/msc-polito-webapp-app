@@ -98,7 +98,6 @@ function dao(db) {
         record.user_id], (err) => {
             if (err) {
                 reject(err);
-                return;
             }
             resolve(true);
         });
