@@ -5,11 +5,13 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Api from '../../Api'
 import { useNavigate } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function GameScore(props) {
   const { lastWords, settings, letter, setLetter, setSettings } = props
   const [score, setScore] = useState(0)
-  const uniqueWords = [...new Set(lastWords)];
+  const [passed, setPassed] = useState(false)
+  const uniqueWords = [...new Set(lastWords)]
 
   const navigate = useNavigate()
   const goHome = () => {
@@ -37,8 +39,20 @@ function GameScore(props) {
         settings.level,
         uniqueWords
       )
-      console.log(response)
+      await Api.logIn({
+        username: 'john.doe@polito.it',
+        password: 'password',
+      })
+      await Api.addRound({
+        category: settings.category,
+        letter: letter,
+        level: settings.level,
+        words: uniqueWords,
+        score: response.score,
+      })
+
       setScore(response.score)
+      setPassed(response.passed)
     }
     checkScore()
   }, [settings, lastWords, letter])
@@ -51,14 +65,23 @@ function GameScore(props) {
           <Col>
             <Row>
               <h1 className='text-center'>Game Score</h1>
+              {passed && (
+                <h2 className='text-center text-success my-3'>PASSED!</h2>
+              )}
+              {!passed && <h2 className='text-center text-danger'>FAILED!</h2>}
               <h2>Level</h2>
-              <div className='text-right'>{settings.level}</div>
+              <div className='text-right border'>{settings.level}</div>
               <h2>Category</h2>
-              <div className='text-right'>{settings.category}</div>
+              <div className='text-right border'>{settings.category}</div>
               <h2>Inserted words</h2>
-              <div className='text-right'>{insertedWords}</div>
-              <h2>Score</h2>
-              <div className='text-center'>{score}</div>
+              <div className='text-right border'>{insertedWords}</div>
+              {passed && (
+                <span>
+                  <h2 className='text-center text-success my-3'>
+                    Score: {score} points
+                  </h2>
+                </span>
+              )}
             </Row>
           </Col>
           <Col />

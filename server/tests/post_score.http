@@ -3,17 +3,32 @@ Content-Type: application/json
 
 {
   "letter": "A",
-    "category": "animals",
-    "level": 1,
-    "words": ["ANT", "ALLIGATOR", "ANGELFISH"]
+  "category": "animals",
+  "level": 1,
+  "words": [
+    "ANT",
+    "ALLIGATOR",
+    "ANGELFISH"
+  ]
 }
 
 POST http://localhost:3001/api/score
 Content-Type: application/json
 
 {
-  "letter": "B",
-    "category": "colors",
-    "level": 2,
-    "words": ["BLUE", "BRONZE", "BLACK"]
+"letter": "B",
+"category": "colors",
+"level": 2,
+"words": ["BLUE", "BRONZE", "BLACK"]
 }
+
+POST http: //localhost:3001/api/score
+Content-Type: application/json
+
+{
+"letter": "B",
+"category": "colors",
+"level": 3,
+"words": ["BLUE", "BRONZE", "BLACK"]
+}
+

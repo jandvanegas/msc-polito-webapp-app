@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/rounds
+Content-Type: application/json
+Cookie: connect.sid=s%3A8Pvywl5i_w5ppNzT5CJoMfuqMFhRz0iF.nIZ5DS5Qimq4wnntKbXDGn1pUcg3loEJ19ZF3%2FX5lNA; Path=/; HttpOnly
+
+{
+  "letter": "B",
+  "category": "colors",
+  "level": 3,
+  "words": ["BLUE", "BRONZE", "BLACK"],
+  "score": 1
+}
+

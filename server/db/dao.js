@@ -1,5 +1,6 @@
 'use strict';
 const dayjs = require('dayjs')
+const crypto = require('crypto');
 
 function dao(db) {
     const FORMAT = 'YYYY-MM-DD HH:mm:ss'
@@ -10,19 +11,21 @@ function dao(db) {
                 category: row.category,
                 playedAt: dayjs(row.played_at, FORMAT),
                 words: JSON.parse(row.words),
+                userId: row.user_id,
             });
         });
     }
 
-    const roundsToDbRecords = (rounds) => {
-      return rounds.map(round => {
+    const roundToDbRecord = (round) => {
         return ({
-          title: round.letter,
+          letter: round.letter,
           category: round.category,
+          level: round.level,
           played_at: round.playedAt.format(FORMAT),
           words: JSON.stringify(round.words),
+          user_id: round.userId,
+          score: round.score,
         });
-      })
     }
 
     const listLastRoundsByLetterAndCategory = (letter, category, rounds) => {
@@ -56,9 +59,56 @@ function dao(db) {
             });
         });
     }
+    const getUser = (email, password) => {
+        return new Promise((resolve, reject) => {
+            const sql = 'SELECT * FROM users WHERE email = ?';
+            db.get(sql, [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else if (row === undefined) {
+                    resolve(false);
+                } else {
+                    const user = {id: row.id, username: row.email, name: row.name};
+
+                    crypto.scrypt(password, row.salt, 32, function (err, hashedPassword) {
+                        if (err) reject(err);
+                        if (!crypto.timingSafeEqual(Buffer.from(row.hash, 'hex'), hashedPassword))
+                            resolve(false);
+                        else
+                            resolve(user);
+                    });
+                }
+            });
+        }); };
+
+    const addRound = (round) => {
+      const record = roundToDbRecord({playedAt:dayjs(), ...round });
+      return new Promise((resolve, reject) => {
+        const sql = `
+            INSERT INTO rounds(letter, category, level, played_at, words, score, user_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?);`
+
+        db.run(sql, [
+        record.letter, 
+        record.category, 
+        record.level,
+        record.played_at,
+        record.words,
+        record.score,
+        record.user_id], (err) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(true);
+        });
+      });
+    }
     return {
+      addRound: addRound,
       listLastRoundsByLetterAndCategory: listLastRoundsByLetterAndCategory,
       findValidWords: findValidWords,
+      getUser: getUser,
     }
 }
 
