@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function GameScore(props) {
-  const { lastWords, settings, letter, setLetter, setSettings } = props
+  const { lastWords, settings, letter, setLetter, setSettings, loggedIn } =
+    props
   const [score, setScore] = useState(0)
   const [passed, setPassed] = useState(false)
 
@@ -42,23 +43,20 @@ function GameScore(props) {
         settings.level,
         uniqueWords
       )
-      // await Api.logIn({
-      //   username: 'john.doe@polito.it',
-      //   password: 'password',
-      // })
-      await Api.addRound({
-        category: settings.category,
-        letter: letter,
-        level: settings.level,
-        words: uniqueWords,
-        score: response.score,
-      })
-
       setScore(response.score)
       setPassed(response.passed)
+      if (loggedIn && response.passed) {
+        await Api.addRound({
+          category: settings.category,
+          letter: letter,
+          level: settings.level,
+          words: uniqueWords,
+          score: response.score,
+        })
+      }
     }
     checkScore()
-  }, [settings, lastWords, letter])
+  }, [settings, lastWords, letter, loggedIn])
 
   return (
     <>
@@ -77,7 +75,9 @@ function GameScore(props) {
               <h2>Category</h2>
               <div className='text-right border'>{settings.category}</div>
               <h2>Inserted words</h2>
-              <div className='text-right border'>{insertedWords(lastWords)}</div>
+              <div className='text-right border'>
+                {insertedWords(lastWords)}
+              </div>
               {passed && (
                 <span>
                   <h2 className='text-center text-success my-3'>

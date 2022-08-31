@@ -54,24 +54,27 @@ const logIn = async (credentials) => {
 }
 
 const getUserInfo = async () => {
-    const response = await fetch(`${configData.API_URL}/sessions/current`, {
-        credentials: 'include',
-    });
-    const message = await response.json();
-    if (response.ok) {
-        return message;
-    } else {
-        throw message;
+  const response = await fetch(`${configData.API_URL}/sessions/current`, {
+    credentials: 'include',
+  })
+
+  if (response.ok) {
+    const message = await response.json()
+    if (message.status === 'logged_in') {
+      return message.user
     }
-};
+    return null
+  } else {
+    throw await response.text()
+  }
+}
 
 const logOut = async () => {
-    const response = await fetch(`${configData.API_URL}/sessions/current`, {
-        method: 'DELETE',
-        credentials: 'include'
-    });
-    if (response.ok)
-        return null;
+  const response = await fetch(`${configData.API_URL}/sessions/current`, {
+    method: 'DELETE',
+    credentials: 'include',
+  })
+  if (response.ok) return null
 }
 
 const API = {

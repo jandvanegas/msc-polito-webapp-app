@@ -20,8 +20,10 @@ function App() {
 
   useEffect(() => {
     const checkAuth = async () => {
-      await Api.getUserInfo() // we have the user info here
-      setLoggedIn(true)
+      const user = await Api.getUserInfo()
+      if (user) {
+        setLoggedIn(true)
+      }
     }
     checkAuth()
   }, [])
@@ -63,7 +65,12 @@ function App() {
             path='/'
             element={
               <Container>
-                <NavigationBar open={open} setOpen={setOpen} loggedIn={loggedIn} handleLogout={handleLogout}/>
+                <NavigationBar
+                  open={open}
+                  setOpen={setOpen}
+                  loggedIn={loggedIn}
+                  handleLogout={handleLogout}
+                />
                 <EntryPage loggedIn={loggedIn} />
               </Container>
             }
@@ -73,10 +80,15 @@ function App() {
             element={
               <Container>
                 <Row>
-                <NavigationBar open={open} setOpen={setOpen} loggedIn={loggedIn} handleLogout={handleLogout}/>
+                  <NavigationBar
+                    open={open}
+                    setOpen={setOpen}
+                    loggedIn={loggedIn}
+                    handleLogout={handleLogout}
+                  />
                 </Row>
                 <Row>
-                  <Game />
+                  <Game loggedIn={loggedIn} />
                 </Row>
               </Container>
             }
@@ -89,7 +101,12 @@ function App() {
               ) : (
                 <Container>
                   <Row>
-                <NavigationBar open={open} setOpen={setOpen} loggedIn={loggedIn} handleLogout={handleLogout}/>
+                    <NavigationBar
+                      open={open}
+                      setOpen={setOpen}
+                      loggedIn={loggedIn}
+                      handleLogout={handleLogout}
+                    />
                   </Row>
                   <Row>
                     <LoginPage login={handleLogin} />
@@ -102,7 +119,12 @@ function App() {
             path='/leaderboard'
             element={
               <Container>
-                <NavigationBar open={open} setOpen={setOpen} loggedIn={loggedIn} handleLogout={handleLogout}/>
+                <NavigationBar
+                  open={open}
+                  setOpen={setOpen}
+                  loggedIn={loggedIn}
+                  handleLogout={handleLogout}
+                />
                 <Leaderboard />
               </Container>
             }
