@@ -11,11 +11,13 @@ function dao(db) {
   const dbRecordsToRounds = (rows) => {
     return rows.map((row) => {
       return {
-        letter: row.title,
+        letter: row.letter,
         category: row.category,
         playedAt: dayjs(row.played_at, FORMAT),
         words: JSON.parse(row.words),
         userId: row.user_id,
+        level: row.level,
+        score: row.score,
       }
     })
   }
@@ -117,11 +119,49 @@ function dao(db) {
       )
     })
   }
+  const getRounds = (userId) => {
+    return new Promise((resolve, reject) => {
+      const sql = `
+            SELECT letter, category, level, played_at, words, score
+            FROM rounds WHERE user_id = ? ORDER BY played_at DESC limit 10;`
+      db.all(sql, [userId], (err, rows) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(dbRecordsToRounds(rows))
+      })
+    })
+  }
+  const getLeaders = () => {
+    return new Promise((resolve, reject) => {
+      const sql = `with total_ranking as (SELECT sum(score) as score,
+                              category,
+                              name,
+                              rank() OVER (
+                                  PARTITION BY category ORDER BY sum(score) DESC
+                                  ) as rank
+                       FROM rounds
+                                LEFT JOIN users u ON u.id = rounds.user_id
+                       group by category, user_id)
+                    SELECT name, category, score
+                    FROM total_ranking where rank=1 and score>0;`
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(rows)
+      })
+    })
+  }
   return {
     addRound: addRound,
+    getRounds: getRounds,
     listLastRoundsByLetterAndCategory: listLastRoundsByLetterAndCategory,
     findValidWords: findValidWords,
     getUser: getUser,
+    getLeaders: getLeaders,
   }
 }
 

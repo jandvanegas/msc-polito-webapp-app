@@ -2,7 +2,29 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
+import { useState, useEffect } from 'react'
+import Api from '../Api'
+
 function Leaderboard() {
+  const [leaders, setLeaders] = useState([])
+
+  useEffect(() => {
+    const checkLeaderboard = async () => {
+      const response = await Api.getLeaderboard()
+      setLeaders(response)
+    }
+    checkLeaderboard()
+  }, [])
+
+  const records = leaders.map((record, index) => {
+    return (
+      <tr key={index}>
+        <td>{record.category}</td>
+        <td>{record.name}</td>
+        <td>{record.score}</td>
+      </tr>
+    )
+  })
   return (
     <Container>
       <Row className='d-flex justify-items-between my-3'>
@@ -11,32 +33,12 @@ function Leaderboard() {
           <Table hover variant='principal'>
             <thead>
               <tr>
-                <th></th>
                 <th>Category</th>
                 <th>Player</th>
                 <th>Score</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td>Country</td>
-                <td>Player 1</td>
-                <td>520</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>Colors</td>
-                <td>Player 2</td>
-                <td>400</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>Country</td>
-                <td>Player 3</td>
-                <td>320</td>
-              </tr>
-            </tbody>
+            <tbody>{records}</tbody>
           </Table>
         </Col>
         <Col />

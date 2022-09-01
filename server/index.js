@@ -143,6 +143,42 @@ app.post(
     return res.status(201)
   }
 )
+
+app.get('/api/rounds', isLoggedIn, async (req, res) => {
+  const userId = req.user.id
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() })
+  }
+  try {
+    const rounds = await myDao.getRounds(userId)
+    return res.status(200).json(rounds)
+  } catch (err) {
+    console.log(err)
+    if (err.code && err.code === 'SQLITE_ERROR') {
+      return res.status(503).end()
+    } else {
+      return res.status(500).end()
+    }
+  }
+})
+app.get('/api/leaderboard', async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() })
+  }
+  try {
+    const leaders = await myDao.getLeaders()
+    return res.status(200).json(leaders)
+  } catch (err) {
+    console.log(err)
+    if (err.code && err.code === 'SQLITE_ERROR') {
+      return res.status(503).end()
+    } else {
+      return res.status(500).end()
+    }
+  }
+})
 app.listen(config.PORT, () =>
   console.log(`Server running on http://localhost:${config.PORT}/`)
 )

@@ -68,7 +68,27 @@ const getUserInfo = async () => {
     throw await response.text()
   }
 }
+const getRounds = async () => {
+  const response = await fetch(`${configData.API_URL}/rounds`, {
+    credentials: 'include',
+  })
+  if (response.ok) {
+    return await response.json()
+  } else {
+    throw await response.text()
+  }
+}
 
+const getLeaderboard = async () => {
+  const response = await fetch(`${configData.API_URL}/leaderboard`, {
+    credentials: 'include',
+  })
+  if (response.ok) {
+    return await response.json()
+  } else {
+    throw await response.text()
+  }
+}
 const logOut = async () => {
   const response = await fetch(`${configData.API_URL}/sessions/current`, {
     method: 'DELETE',
@@ -83,5 +103,7 @@ const API = {
   postScore,
   addRound,
   getUserInfo,
+  getRounds,
+  getLeaderboard,
 }
 export default API

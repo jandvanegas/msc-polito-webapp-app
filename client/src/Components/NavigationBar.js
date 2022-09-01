@@ -10,6 +10,10 @@ function NavigationBar(props) {
   const logIn = () => {
     navigate('/login')
   }
+  const logOut = () => {
+    handleLogout()
+    navigate('/')
+  }
   return (
     <Navbar bg='primary' variant='dark'>
       <Container>
@@ -37,10 +41,13 @@ function NavigationBar(props) {
         <Nav className='me-auto'>
           <Nav.Link href='/#'>Home</Nav.Link>
           <Nav.Link href='/leaderboard#'>Hall of Fame</Nav.Link>
+          { loggedIn && (
+            <Nav.Link href='/history#'>My Scores</Nav.Link>
+          )}
         </Nav>
 
         {loggedIn && (
-          <Button onClick={handleLogout}>Log Out &nbsp;</Button>
+          <Button onClick={logOut}>Log Out &nbsp;</Button>
         )}
 
         {!loggedIn && (
