@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { useNavigate } from 'react-router-dom'
@@ -38,31 +39,38 @@ function NavigationBar(props) {
               <path d='M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z' />
             </svg>
           </Navbar.Brand>
-            <Container className="d-none d-md-block">
+          <Container className='d-none d-md-block'>
             <Nav className='me-auto'>
               <Nav.Link href='/#'>Home</Nav.Link>
               <Nav.Link href='/leaderboard#'>Hall of Fame</Nav.Link>
               {loggedIn && <Nav.Link href='/history#'>My Rounds</Nav.Link>}
             </Nav>
-            </Container>
+          </Container>
 
-          {loggedIn && <Button onClick={logOut}>Log Out &nbsp;</Button>}
-
-          {!loggedIn && <Button onClick={logIn}>Log In &nbsp;</Button>}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='32'
-            height='32'
-            fill='white'
-            className='bi bi-person-circle'
-            viewBox='0 0 16 16'
-          >
-            <path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z' />
-            <path
-              fillRule='evenodd'
-              d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'
-            />
-          </svg>
+          <Container>
+            <Col className='d-flex justify-content-end'>
+              {!loggedIn && <Button onClick={logIn}>Log In &nbsp;</Button>}
+              {loggedIn && (
+                <Button className='md-5' onClick={logOut}>
+                  Log Out &nbsp;
+                </Button>
+              )}
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='32'
+                height='32'
+                fill='white'
+                className='bi bi-person-circle'
+                viewBox='0 0 16 16'
+              >
+                <path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z' />
+                <path
+                  fillRule='evenodd'
+                  d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'
+                />
+              </svg>
+            </Col>
+          </Container>
         </Container>
       </Navbar>
     </>
