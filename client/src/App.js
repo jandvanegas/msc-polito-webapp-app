@@ -85,7 +85,7 @@ function App() {
           >
             <Route path='' element={<EntryPage loggedIn={loggedIn} />} />
             <Route
-              path='/play'
+              path='play'
               element={
                 <Game
                   loggedIn={loggedIn}
@@ -94,11 +94,11 @@ function App() {
                 />
               }
             />
-            <Route path='/leaderboard' element={<Leaderboard />} />
-            <Route path='/history' element={<UserHistory loggedIn={loggedIn}/>} />
+            <Route path='leaderboard' element={<Leaderboard />} />
+            <Route path='history' element={<UserHistory loggedIn={loggedIn}/>} />
             <Route path='*' element={<DefaultRoute />} />
             <Route
-              path='/login'
+              path='login'
               element={<LoginPage login={handleLogin} loggedIn={loggedIn} />}
             />
           </Route>
