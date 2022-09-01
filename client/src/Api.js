@@ -4,6 +4,7 @@ const postScore = async (category, letter, level, words) => {
   const response = await fetch(`${configData.API_URL}/score`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: JSON.stringify({
       category: category,
       letter: letter,

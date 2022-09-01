@@ -34,13 +34,13 @@ function dao(db) {
     }
   }
 
-  const listLastRoundsByLetterAndCategory = (letter, category, rounds) => {
+  const listLastRoundsByLetterAndCategory = (letter, category, rounds, userId) => {
     return new Promise((resolve, reject) => {
       const sql = ` SELECT *
                           FROM rounds 
-                          WHERE letter=? AND category=? 
+                          WHERE letter=? AND category=? AND user_id!=?
                           ORDER BY played_at DESC LIMIT ?`
-      db.all(sql, [letter, category, rounds], (err, rows) => {
+      db.all(sql, [letter, category, userId, rounds], (err, rows) => {
         if (err) {
           reject(err)
           return

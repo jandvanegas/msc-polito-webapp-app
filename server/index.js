@@ -88,6 +88,7 @@ app.post(
     check('words').isArray(),
   ],
   (req, res) => {
+    const userId = req.user ? req.user.id: 0
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       console.log(`Validation errors: ${JSON.stringify(errors.array())}`)
@@ -98,7 +99,8 @@ app.post(
         req.body.letter,
         req.body.category,
         req.body.level,
-        req.body.words
+        req.body.words,
+        userId,
       )
       .then((result) => {
         res.status(200).json(result)
@@ -119,7 +121,6 @@ app.post(
   isLoggedIn,
   async (req, res) => {
     const userId = req.user.id
-    console.log("Receiving")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
@@ -141,7 +142,6 @@ app.post(
         return res.status(500).end()
       }
     }
-    console.log("Added")
     return res.status(201).end()
   }
 )

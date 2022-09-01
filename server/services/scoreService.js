@@ -6,7 +6,7 @@ const configData = require('../config')
  * @return {object} - The score service.
  */
 function scoreService(dao) {
-  const evaluate = async (letter, category, level, words) => {
+  const evaluate = async (letter, category, level, words, userId) => {
     const validWordsByCategory = await dao.findValidWords(letter, category)
     const validWords = words.filter((word) =>
       validWordsByCategory.includes(word)
@@ -17,7 +17,8 @@ function scoreService(dao) {
       const rounds = await dao.listLastRoundsByLetterAndCategory(
         letter,
         category,
-        configData.NUMBER_OF_ROUNDS_TO_CHECK
+        configData.NUMBER_OF_ROUNDS_TO_CHECK,
+        userId
       )
       const lastUsedWords = rounds.map((round) => round.words).flat()
       const fullPointWords = validWords.filter((word) => {
