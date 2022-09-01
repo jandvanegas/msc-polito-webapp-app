@@ -8,9 +8,10 @@ import Row from 'react-bootstrap/Row'
 import Alert from 'react-bootstrap/Alert'
 import LoginPage from './Components/Auth'
 import UserHistory from './Components/UserHistory'
+import DefaultRoute from './Components/DefaultRoute'
 import Api from './Api'
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import './App.css'
 
@@ -144,6 +145,24 @@ function App() {
                 </Row>
                 <Row>
                   <UserHistory />
+                </Row>
+              </Container>
+            }
+          />
+          <Route
+            path='*'
+            element={
+              <Container>
+                <Row>
+                  <NavigationBar
+                    open={open}
+                    setOpen={setOpen}
+                    loggedIn={loggedIn}
+                    handleLogout={handleLogout}
+                  />
+                </Row>
+                <Row>
+                  <DefaultRoute />
                 </Row>
               </Container>
             }
