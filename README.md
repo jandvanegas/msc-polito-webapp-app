@@ -98,8 +98,9 @@
 
 ## Database Tables
 
-- Table `users` - store user information and contains email, name, hash, salt 
-- Table `rounds` - store logged-in users' rounds and contains letter, category, played_at, words, score, level, user_id
+- Table `users` - store user information and contains id, email, name, hash, salt 
+- Table `rounds` - store logged-in users' rounds and contains id, letter, category, played_at, words, score, level, user_id
+- Table `words` - store valid words and contains id, word, letter, category
 
 ## Main React Components
 

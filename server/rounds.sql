@@ -1,0 +1,29 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE rounds (
+    id integer primary key autoincrement,
+    letter varchar(1) NOT NULL,
+    category varchar(8) NOT NULL,
+    played_at timestamp NOT NULL,
+    words text NOT NULL,
+    score int NOT NULL,
+    level int NOT NULL,
+    user_id int NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES user(id)
+);
+INSERT INTO rounds VALUES(1,'B','colors','2022-09-01 16:49:18','["BLUE","BLACK","BROWN"]',20,1,1);
+INSERT INTO rounds VALUES(2,'W','colors','2022-09-01 16:53:04','["WHITE","WHEAT","WISTERIA"]',30,1,1);
+INSERT INTO rounds VALUES(3,'J','countries','2022-09-01 16:53:59','["JAMAICA","JAPAN","JERSEY","JORDAN"]',80,2,1);
+INSERT INTO rounds VALUES(4,'H','animals','2022-09-01 16:54:50','["HAMSTER","HORSE","HARRIER","HERON","HOUND","HYENA"]',180,3,1);
+INSERT INTO rounds VALUES(5,'P','colors','2022-09-01 16:56:25','["PINK","PLATINUM","PUCE","PURPLE","PRUSSIAN-BLUE","PEACH","PEAR","PINE-GREEN","PLUM"]',360,4,1);
+INSERT INTO rounds VALUES(6,'U','countries','2022-09-01 17:01:04','["UGANDA","UKRAINE","URUGUAY","UNITED ARAB EMIRATES","U.S. OUTLYING ISLANDS","U.S. VIRGIN ISLANDS"]',240,4,2);
+INSERT INTO rounds VALUES(7,'P','animals','2022-09-01 17:02:40','["PANTHER","PARROT","PEACOCK","PELICAN","PENGUIN","PIG","PIKE","PIRANHA"]',240,3,2);
+INSERT INTO rounds VALUES(8,'I','colors','2022-09-01 17:03:14','["INDIGO","IVORY"]',20,1,2);
+INSERT INTO rounds VALUES(9,'M','colors','2022-09-01 17:20:25','["MAGENTA","MAGNOLIA","MUSTARD"]',30,1,3);
+INSERT INTO rounds VALUES(10,'H','countries','2022-09-01 17:21:32','["HAITI","HONDURAS","HONK KONG","HUNGARY","HONK KONG SAR CHINA","HEARD & MCDONALD ISLANDS"]',80,2,3);
+INSERT INTO rounds VALUES(11,'T','animals','2022-09-01 17:22:12','["TAMARIN","TIGER","TURKEY","TURTLE"]',80,2,3);
+INSERT INTO rounds VALUES(12,'R','animals','2022-09-01 17:22:43','["RABBIT","RACCOON","RAT"]',60,2,3);
+INSERT INTO rounds VALUES(13,'B','animals','2022-09-01 17:23:06','["BEAR","BEAGLE","BEE","BEATLE"]',60,2,3);
+INSERT INTO rounds VALUES(14,'B','colors','2022-09-01 17:46:31','["BLUE","BLACK","BROWN"]',15,1,2);
+INSERT INTO rounds VALUES(15,'H','colors','2022-09-01 17:47:42','["HAN-PURPLE","HARLEQUIN"]',20,1,2);
+COMMIT;

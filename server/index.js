@@ -171,6 +171,7 @@ app.get('/api/leaderboard', async (req, res) => {
   }
   try {
     const leaders = await myDao.getLeaders()
+    console.log(leaders)
     return res.status(200).json(leaders)
   } catch (err) {
     console.log(err)

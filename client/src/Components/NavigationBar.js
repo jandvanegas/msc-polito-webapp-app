@@ -5,14 +5,13 @@ import Navbar from 'react-bootstrap/Navbar'
 import { useNavigate, Outlet } from 'react-router-dom'
 
 function NavigationBar(props) {
-  const { loggedIn, handleLogout, openOutlet, setOpenOutlet } = props
+  const { loggedIn, handleLogout } = props
   const navigate = useNavigate()
   const logIn = () => {
     navigate('/login')
   }
   const logOut = () => {
     handleLogout()
-    navigate('/')
   }
   return (
     <>
