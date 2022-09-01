@@ -29,9 +29,9 @@ function UserHistory(props) {
         <td>{record.category}</td>
         <td>{record.letter}</td>
         <td>{record.level}</td>
-        <td>{record.words.toString()}</td>
-        <td>{record.playedAt}</td>
+        <td className='d-none d-lg-block'>{record.words.toString()}</td>
         <td>{record.score}</td>
+        <td className='d-none d-lg-block'>{record.playedAt}</td>
       </tr>
     )
   })
@@ -45,9 +45,9 @@ function UserHistory(props) {
                 <th>Category</th>
                 <th>Letter</th>
                 <th>Level</th>
-                <th>Words</th>
-                <th>Played At</th>
+                <th className='d-none d-lg-block'>Words</th>
                 <th>Score</th>
+                <th className='d-none d-lg-block'>Played At</th>
               </tr>
             </thead>
             <tbody>{records}</tbody>

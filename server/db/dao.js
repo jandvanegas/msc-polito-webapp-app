@@ -123,7 +123,7 @@ function dao(db) {
     return new Promise((resolve, reject) => {
       const sql = `
             SELECT letter, category, level, played_at, words, score
-            FROM rounds WHERE user_id = ? ORDER BY played_at DESC limit 10;`
+            FROM rounds WHERE user_id = ? ORDER BY played_at DESC limit 50;`
       db.all(sql, [userId], (err, rows) => {
         if (err) {
           reject(err)

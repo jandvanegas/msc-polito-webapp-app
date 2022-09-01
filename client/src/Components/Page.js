@@ -23,6 +23,7 @@ function Page(props) {
           selected={selected}
           open={sideBarOpen}
           setSelected={setSelected}
+          loggedIn={loggedIn}
         />
       </Row>
       <Row>

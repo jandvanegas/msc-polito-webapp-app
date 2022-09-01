@@ -42,7 +42,7 @@ function NavigationBar(props) {
             <Nav className='me-auto'>
               <Nav.Link href='/#'>Home</Nav.Link>
               <Nav.Link href='/leaderboard#'>Hall of Fame</Nav.Link>
-              {loggedIn && <Nav.Link href='/history#'>My Scores</Nav.Link>}
+              {loggedIn && <Nav.Link href='/history#'>My Rounds</Nav.Link>}
             </Nav>
             </Container>
 

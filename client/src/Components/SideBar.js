@@ -29,16 +29,18 @@ function SideBar(props) {
           >
             Hall of Fame
           </ListGroup.Item>
-          <ListGroup.Item
-            action
-            onClick={() => {
-              props.setSelected(3)
-              navigate('/history', { state: 3 })
-            }}
-            active={props.selected === 3}
-          >
-            My History
-          </ListGroup.Item>
+          {props.loggedIn && (
+            <ListGroup.Item
+              action
+              onClick={() => {
+                props.setSelected(3)
+                navigate('/history', { state: 3 })
+              }}
+              active={props.selected === 3}
+            >
+              My Rounds
+            </ListGroup.Item>
+          )}
         </ListGroup>
       </aside>
     </Collapse>
