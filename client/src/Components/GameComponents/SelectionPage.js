@@ -17,7 +17,7 @@ function SelectionPage(props) {
   return (
     <Form onSubmit={handleSubmitSettings}>
       <Row className='d-flex justify-items-between my-3'>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
         <Col>
           <FloatingLabel controlId='level' label='Level'>
             <Form.Select required={true}>
@@ -28,10 +28,10 @@ function SelectionPage(props) {
             </Form.Select>
           </FloatingLabel>
         </Col>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
       </Row>
       <Row className='d-flex justify-items-between my-3'>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
         <Col>
           <FloatingLabel controlId='category' label='Category'>
             <Form.Select required={true}>
@@ -41,7 +41,7 @@ function SelectionPage(props) {
             </Form.Select>
           </FloatingLabel>
         </Col>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
       </Row>
       <Row className='d-flex justify-items-between my-3'>
         <Col />

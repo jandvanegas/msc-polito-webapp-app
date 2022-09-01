@@ -6,7 +6,8 @@ import Table from 'react-bootstrap/Table'
 import Api from '../Api'
 import { useNavigate } from 'react-router-dom'
 
-function UserHistory() {
+function UserHistory(props) {
+  const { loggedIn } = props
   const navigate = useNavigate()
   const [userRounds, setUserRounds] = useState([])
 
@@ -20,7 +21,7 @@ function UserHistory() {
       }
     }
     checkHistory()
-  }, [navigate])
+  }, [navigate, loggedIn, setUserRounds])
 
   const records = userRounds.map((record, index) => {
     return (
@@ -40,7 +41,7 @@ function UserHistory() {
         <Col>
           <Table hover variant='principal'>
             <thead>
-              <tr key={"key"}>
+              <tr key={'key'}>
                 <th>Category</th>
                 <th>Letter</th>
                 <th>Level</th>

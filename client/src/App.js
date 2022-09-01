@@ -95,7 +95,7 @@ function App() {
               }
             />
             <Route path='/leaderboard' element={<Leaderboard />} />
-            <Route path='/history' element={<UserHistory />} />
+            <Route path='/history' element={<UserHistory loggedIn={loggedIn}/>} />
             <Route path='*' element={<DefaultRoute />} />
             <Route
               path='/login'

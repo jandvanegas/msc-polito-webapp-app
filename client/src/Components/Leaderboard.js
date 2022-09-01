@@ -28,7 +28,7 @@ function Leaderboard() {
   return (
     <Container>
       <Row className='d-flex justify-items-between my-3'>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
         <Col>
           <Table hover variant='principal'>
             <thead>
@@ -41,7 +41,7 @@ function Leaderboard() {
             <tbody>{records}</tbody>
           </Table>
         </Col>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
       </Row>
     </Container>
   )

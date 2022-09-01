@@ -18,14 +18,14 @@ function EntryPage(props) {
   return (
     <Container>
       <Row className='d-flex justify-items-between my-3'>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
         <Col>
           <Image fluid src='./images/logo.png' />
         </Col>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
       </Row>
       <Row className='d-flex justify-items-between my-3'>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
         <Col className='d-flex justify-content-center'>
           <Button className='mx-2' onClick={startGame} variant='primary'>
             Play
@@ -40,7 +40,7 @@ function EntryPage(props) {
             </Button>
           )}
         </Col>
-        <Col />
+        <Col xs={1} sm={2} md={4} />
       </Row>
     </Container>
   )

@@ -69,7 +69,7 @@ function LoginPage(props) {
             <LoginForm login={props.login} />
           </Row>
         </Col>
-        <Col xs={1} sm={2} />
+        <Col xs={1} sm={2} md={4} />
       </Row>
     </Container>
   )

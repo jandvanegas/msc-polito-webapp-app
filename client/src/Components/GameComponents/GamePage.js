@@ -39,7 +39,7 @@ function GamePage(props) {
             />
           </Row>
         </Col>
-        <Col>
+        <Col className='d-none d-lg-block'>
           <GameInstructions settings={settings} randomLetter={gameLetter} />
         </Col>
       </Row>

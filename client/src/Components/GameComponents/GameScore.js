@@ -6,13 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function GameScore(props) {
-  const {
-    lastWords,
-    settings,
-    setLetter,
-    setSettings,
-    score,
-  } = props
+  const { lastWords, settings, setLetter, setSettings, score } = props
 
   const navigate = useNavigate()
   const goHome = () => {
@@ -39,7 +33,7 @@ function GameScore(props) {
     <>
       <Container>
         <Row>
-          <Col />
+          <Col xs={1} sm={2} md={4} />
           <Col>
             <Row>
               <h1 className='text-center'>Game Score</h1>
@@ -66,11 +60,11 @@ function GameScore(props) {
               )}
             </Row>
           </Col>
-          <Col />
+          <Col xs={1} sm={2} md={4} />
         </Row>
 
         <Row className='d-flex justify-items-between my-3'>
-          <Col />
+          <Col xs={1} sm={2} md={4} />
           <Col className='d-flex justify-content-center'>
             <Button variant='primary' className='mx-1' onClick={resetGame}>
               Play Again
@@ -79,7 +73,7 @@ function GameScore(props) {
               Close
             </Button>
           </Col>
-          <Col />
+          <Col xs={1} sm={2} md={4} />
         </Row>
       </Container>
     </>
