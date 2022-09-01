@@ -119,6 +119,7 @@ app.post(
   isLoggedIn,
   async (req, res) => {
     const userId = req.user.id
+    console.log("Receiving")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() })
@@ -140,7 +141,8 @@ app.post(
         return res.status(500).end()
       }
     }
-    return res.status(201)
+    console.log("Added")
+    return res.status(201).end()
   }
 )
 

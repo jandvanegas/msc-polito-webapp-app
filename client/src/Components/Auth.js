@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm(props) {
   const [username, setUsername] = useState('')
@@ -47,6 +48,15 @@ function LoginForm(props) {
 }
 
 function LoginPage(props) {
+  const navigate = useNavigate()
+  useEffect(() => {
+    const redirect = async () => {
+      if (props.loggedIn) {
+        navigate('/')
+      }
+    }
+    redirect()
+  }, [props.loggedIn, navigate])
   return (
     <Container fluid>
       <Row className='d-flex justify-items-between'>

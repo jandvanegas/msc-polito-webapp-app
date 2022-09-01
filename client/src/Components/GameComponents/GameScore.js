@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import Api from '../../Api'
 import { useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function GameScore(props) {
-  const { lastWords, settings, letter, setLetter, setSettings, loggedIn } =
-    props
-  const [score, setScore] = useState(0)
-  const [passed, setPassed] = useState(false)
+  const {
+    lastWords,
+    settings,
+    setLetter,
+    setSettings,
+    score,
+  } = props
 
   const navigate = useNavigate()
   const goHome = () => {
@@ -34,30 +35,6 @@ function GameScore(props) {
     })
   }
 
-  useEffect(() => {
-    const checkScore = async () => {
-      const uniqueWords = [...new Set(lastWords)]
-      const response = await Api.postScore(
-        settings.category,
-        letter,
-        settings.level,
-        uniqueWords
-      )
-      setScore(response.score)
-      setPassed(response.passed)
-      if (loggedIn && response.passed) {
-        await Api.addRound({
-          category: settings.category,
-          letter: letter,
-          level: settings.level,
-          words: uniqueWords,
-          score: response.score,
-        })
-      }
-    }
-    checkScore()
-  }, [settings, lastWords, letter, loggedIn])
-
   return (
     <>
       <Container>
@@ -66,10 +43,12 @@ function GameScore(props) {
           <Col>
             <Row>
               <h1 className='text-center'>Game Score</h1>
-              {passed && (
+              {score && score.passed && (
                 <h2 className='text-center text-success my-3'>PASSED!</h2>
               )}
-              {!passed && <h2 className='text-center text-danger'>FAILED!</h2>}
+              {(!score || !score.passed) && (
+                <h2 className='text-center text-danger'>FAILED!</h2>
+              )}
               <h2>Level</h2>
               <div className='text-right border'>{settings.level}</div>
               <h2>Category</h2>
@@ -78,10 +57,10 @@ function GameScore(props) {
               <div className='text-right border'>
                 {insertedWords(lastWords)}
               </div>
-              {passed && (
+              {score && score.passed && (
                 <span>
                   <h2 className='text-center text-success my-3'>
-                    Score: {score} points
+                    Score: {score.score} points
                   </h2>
                 </span>
               )}

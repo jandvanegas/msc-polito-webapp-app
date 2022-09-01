@@ -10,13 +10,14 @@ import configData from '../../config'
 function GamePage(props) {
   const alphabet = configData.ALPHABET
   const randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)]
-  const { settings, setLetter, setLastWords } = props
+  const { settings, setLetter, setLastWords, setScore } = props
   const [words, setWords] = useState([])
   const [gameLetter, ] = useState(randomLetter)
 
   const stopGame = () => {
     setLetter(gameLetter)
     setLastWords(words)
+    setScore('')
   }
 
   return (
