@@ -12,7 +12,7 @@ function GameSettings(props) {
         <Col xs={1} sm={2} md={4} />
         <Col>
           <Row>
-            <Card bg='secondary' className='mb-2'>
+            <Card bg='secondary text-white' className='mb-2'>
               <Card.Header>Category</Card.Header>
               <Card.Body>
                 <Card.Title>{settings.category.toUpperCase()}</Card.Title>
@@ -20,7 +20,7 @@ function GameSettings(props) {
             </Card>
           </Row>
           <Row>
-            <Card bg='primary' className='mb-2'>
+            <Card bg='primary text-white' className='mb-2'>
               <Card.Header>Letter</Card.Header>
               <Card.Body>
                 <Card.Title>{randomLetter}</Card.Title>
@@ -28,7 +28,7 @@ function GameSettings(props) {
             </Card>
           </Row>
           <Row>
-            <Card bg='secondary' className='mb-2'>
+            <Card bg='secondary text-white' className='mb-2'>
               <Card.Header>Time</Card.Header>
               <Card.Body>
                 <Card.Title>
